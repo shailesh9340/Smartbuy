@@ -2,160 +2,122 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SmartBuy.ind – Ready</title>
+<title>SmartBuy.ind</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
-body{margin:0;font-family:Arial;background:#f2f2f2}
-header{background:#2874f0;color:#fff;padding:10px;display:flex;gap:8px}
-header input{flex:1;padding:8px;border:none;border-radius:4px}
-header button{border:none;border-radius:4px;padding:8px 12px;font-weight:bold}
-
-.banner{margin:10px;background:#ffe500;padding:15px;border-radius:8px;font-weight:bold;text-align:center}
-
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}
-
-.card{background:#fff;border-radius:8px;padding:8px;box-shadow:0 1px 4px rgba(0,0,0,.2)}
-
-.img-box{position:relative;height:180px}
-.img-box img{width:100%;height:100%;object-fit:cover;border-radius:6px}
-
-.arrow{
-position:absolute;top:50%;transform:translateY(-50%);
-background:#00000099;color:#fff;border:none;
-font-size:18px;padding:5px 8px;border-radius:50%
-}
-.left{left:5px}
-.right{right:5px}
-
-.price{color:green;font-weight:bold}
-.cut{text-decoration:line-through;color:#888;font-size:12px}
-
-.btn{display:block;text-align:center;background:#2874f0;color:#fff;
-padding:8px;border-radius:6px;text-decoration:none;margin-top:6px}
-
-footer{
-position:fixed;bottom:0;left:0;right:0;
-background:#fff;border-top:1px solid #ccc;
-display:flex;justify-content:space-around;padding:8px;font-size:12px
-}
-
-/* ADMIN */
-#adminModal{position:fixed;inset:0;background:#000000aa;display:none;justify-content:center;align-items:center}
-#adminBox{background:#fff;padding:15px;border-radius:8px;width:90%;max-width:350px}
-#adminBox input{width:100%;padding:8px;margin:5px 0}
-#adminBox button{width:100%;padding:10px;margin-top:8px;border:none;background:#2874f0;color:#fff;border-radius:6px}
+body{margin:0;font-family:Arial;background:#f5f5f5}
+header{background:#2874f0;color:#fff;padding:12px;text-align:center;font-size:22px;font-weight:bold}
+.topbar{display:flex;justify-content:space-around;background:#fff;padding:10px;box-shadow:0 2px 5px #ccc}
+.topbar button{border:none;background:#2874f0;color:#fff;padding:8px 14px;border-radius:5px}
+.container{padding:10px}
+.card{background:#fff;margin-bottom:15px;padding:10px;border-radius:8px;box-shadow:0 2px 6px #ccc}
+.slider{display:flex;overflow-x:auto;gap:8px}
+.slider img{height:160px;border-radius:6px;cursor:pointer}
+.price{color:green;font-size:18px;font-weight:bold}
+.cut{text-decoration:line-through;color:#888;margin-left:6px}
+.off{color:red;font-size:14px}
+.buy{display:block;margin-top:10px;text-align:center;background:#ff9f00;color:#000;padding:10px;border-radius:6px;text-decoration:none;font-weight:bold}
+#viewer{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center}
+#viewer img{max-width:95%;max-height:90%}
+#close{position:absolute;top:15px;right:20px;font-size:30px;color:#fff;cursor:pointer}
+.hidden{display:none}
+footer{background:#fff;padding:10px;text-align:center;font-size:14px}
 </style>
 </head>
 
 <body>
 
-<header>
-<input id="search" placeholder="Search products">
-<button onclick="openAdmin()">Admin</button>
-</header>
+<header>SmartBuy.ind</header>
 
-<div class="banner">🔥 Budget Deals – SmartBuy.ind</div>
+<div class="topbar">
+<button onclick="alert('Cart working demo')">🛒 Cart</button>
+<button onclick="alert('Account created (demo)')">👤 Account</button>
+<button onclick="toggleDonate()">❤️ Donate</button>
+</div>
 
-<div class="grid" id="productGrid"></div>
+<div class="container">
+
+<!-- PRODUCT 1 (UNCHANGED / SAFE) -->
+<div class="card">
+<h3>Premium Bagpack Encrypted (Password)</h3>
+<div class="slider">
+<img src="https://i.ibb.co/Xf2HkkcP/Screenshot-2026-01-28-09-16-20-919-com-flipkart-shopsy-edit.jpg" onclick="view(this.src)">
+<img src="https://i.ibb.co/yttFXZ4/Screenshot-2026-01-28-09-17-19-979-com-flipkart-shopsy-edit.jpg" onclick="view(this.src)">
+<img src="https://i.ibb.co/TDnkXXt6/Screenshot-2026-01-28-09-17-07-342-com-flipkart-shopsy.jpg" onclick="view(this.src)">
+<img src="https://i.ibb.co/XZ2kWLwy/Screenshot-2026-01-28-09-16-37-380-com-flipkart-shopsy-edit.jpg" onclick="view(this.src)">
+</div>
+<div>
+<span class="price">₹322</span>
+<span class="cut">₹999</span>
+<span class="off">68% OFF</span>
+</div>
+<a class="buy" href="https://bitli.in/JZizUxb" target="_blank">Buy Now</a>
+</div>
+
+<!-- PRODUCT 2 -->
+<div class="card">
+<h3>Women Floral Kurti</h3>
+<div class="slider">
+<img src="https://i.ibb.co/jvnM1DvY/Screenshot-2026-01-28-20-42-57-901-com-flipkart-shopsy-edit.jpg" onclick="view(this.src)">
+<img src="https://i.ibb.co/dw8Z04GJ/Screenshot-2026-01-28-20-43-10-575-com-flipkart-shopsy-edit.jpg" onclick="view(this.src)">
+<img src="https://i.ibb.co/svt2y75W/Screenshot-2026-01-28-20-43-22-071-com-flipkart-shopsy-edit.jpg" onclick="view(this.src)">
+</div>
+<div>
+<span class="price">₹253</span>
+<span class="cut">₹1999</span>
+<span class="off">87% OFF</span>
+</div>
+<a class="buy" href="https://bitli.in/mYd26le" target="_blank">Buy Now</a>
+</div>
+
+<!-- PRODUCT 3 -->
+<div class="card">
+<h3>Men Regular Fit Trousers</h3>
+<div class="slider">
+<img src="https://i.ibb.co/xKgxySx2/Screenshot-2026-01-28-20-51-16-478-com-flipkart-shopsy-edit.jpg" onclick="view(this.src)">
+<img src="https://i.ibb.co/zWcpyJSk/Screenshot-2026-01-28-20-51-44-808-com-flipkart-shopsy-edit.jpg" onclick="view(this.src)">
+<img src="https://i.ibb.co/FqWStjST/Screenshot-2026-01-28-20-51-31-368-com-flipkart-shopsy-edit.jpg" onclick="view(this.src)">
+</div>
+<div>
+<span class="price">₹262</span>
+<span class="cut">₹999</span>
+<span class="off">73% OFF</span>
+</div>
+<a class="buy" href="https://bitli.in/w8hSXkv" target="_blank">Buy Now</a>
+</div>
+
+<!-- DONATION -->
+<div id="donate" class="card hidden">
+<h3>SmartBuy Foundation ❤️</h3>
+<p>UPI ID: <b>9343988416-2@ybl</b></p>
+<p>Thank you for supporting 🙏</p>
+</div>
+
+</div>
 
 <footer>
-<div onclick="alert('Home')">🏠 Home</div>
-<div onclick="searchProduct()">🔍 Search</div>
-<div onclick="alert('Cart coming soon')">🛒 Cart</div>
-<div onclick="alert('Account coming soon')">👤 Account</div>
+Follow us on Instagram 👉 
+<a href="https://www.instagram.com/smartbuy.ind_?igsh=MWUwNTNzczI4YjZsdw==" target="_blank">
+@smartbuy.ind_
+</a>
 </footer>
 
-<!-- ADMIN PANEL -->
-<div id="adminModal">
-<div id="adminBox">
-<h3>Admin Panel</h3>
-<input type="password" id="pass" placeholder="Password (1234)">
-<input id="pname" placeholder="Product name">
-<input id="pimgs" placeholder="Image URLs (comma separated)">
-<input id="pprice" placeholder="Price">
-<input id="pcut" placeholder="Cut price">
-<input id="plink" placeholder="Affiliate link">
-<button onclick="addProduct()">Save Product</button>
-<button onclick="closeAdmin()">Close</button>
-</div>
+<!-- IMAGE VIEWER -->
+<div id="viewer">
+<span id="close" onclick="closeView()">×</span>
+<img id="big">
 </div>
 
 <script>
-// RESET FIRST TIME
-if(!localStorage.getItem("sb_init")){
-localStorage.clear();
-localStorage.setItem("sb_init","1");
+function view(src){
+document.getElementById('viewer').style.display='flex';
+document.getElementById('big').src=src;
 }
-
-// DEFAULT PRODUCT (YOUR BAGPACK)
-let products = JSON.parse(localStorage.getItem("products")) || [
-{
-name:"Premium Bagpack Encrypted (Password)",
-images:[
-"https://i.ibb.co/Xf2HkkcP/Screenshot-2026-01-28-09-16-20-919-com-flipkart-shopsy-edit.jpg",
-"https://i.ibb.co/yttFXZ4/Screenshot-2026-01-28-09-17-19-979-com-flipkart-shopsy-edit.jpg",
-"https://i.ibb.co/TDnkXXt6/Screenshot-2026-01-28-09-17-07-342-com-flipkart-shopsy.jpg",
-"https://i.ibb.co/XZ2kWLwy/Screenshot-2026-01-28-09-16-37-380-com-flipkart-shopsy-edit.jpg"
-],
-price:"322",
-cut:"999",
-link:"https://bitli.in/JZizUxb"
+function closeView(){
+document.getElementById('viewer').style.display='none';
 }
-];
-
-let idx = Array(products.length).fill(0);
-
-function render(list=products){
-const g=document.getElementById("productGrid");
-g.innerHTML="";
-list.forEach((p,i)=>{
-g.innerHTML+=`
-<div class="card">
-<div class="img-box">
-<img id="img${i}" src="${p.images[0]}">
-<button class="arrow left" onclick="prev(${i})">‹</button>
-<button class="arrow right" onclick="next(${i})">›</button>
-</div>
-<p>${p.name}</p>
-<div class="price">₹${p.price} <span class="cut">₹${p.cut}</span></div>
-<a class="btn" href="${p.link}" target="_blank">Buy Now</a>
-</div>`;
-});
-}
-render();
-
-function next(i){
-idx[i]=(idx[i]+1)%products[i].images.length;
-document.getElementById("img"+i).src=products[i].images[idx[i]];
-}
-function prev(i){
-idx[i]=(idx[i]-1+products[i].images.length)%products[i].images.length;
-document.getElementById("img"+i).src=products[i].images[idx[i]];
-}
-
-// ADMIN
-function openAdmin(){adminModal.style.display="flex"}
-function closeAdmin(){adminModal.style.display="none"}
-
-function addProduct(){
-if(pass.value!=="1234") return alert("Wrong password");
-const imgs=pimgs.value.split(",").map(x=>x.trim());
-products.push({
-name:pname.value,
-images:imgs,
-price:pprice.value,
-cut:pcut.value,
-link:plink.value
-});
-localStorage.setItem("products",JSON.stringify(products));
-location.reload();
-}
-
-// SEARCH
-function searchProduct(){
-const q=search.value.toLowerCase();
-render(products.filter(p=>p.name.toLowerCase().includes(q)));
+function toggleDonate(){
+document.getElementById('donate').classList.toggle('hidden');
 }
 </script>
 
