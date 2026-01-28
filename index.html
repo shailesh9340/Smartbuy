@@ -6,191 +6,298 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{margin:0;font-family:Arial;background:#f1f3f6}
-header{background:#2874f0;color:#fff;padding:14px;text-align:center;font-size:24px;font-weight:bold}
-.topbar{display:flex;justify-content:space-around;background:#fff;padding:10px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
-.topbar button{border:none;background:#2874f0;color:#fff;padding:8px 12px;border-radius:6px;font-size:13px;cursor:pointer}
+body{margin:0;font-family:Arial;background:#0d0dde}
 
-.container{padding:10px}
-.card{background:#fff;margin-bottom:15px;padding:12px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+/* ===== HEADER ===== */
+header{
+position:fixed;top:0;width:100%;z-index:10;
+background:#2209c2;padding:10px;
+display:flex;align-items:center;justify-content:space-between;
+box-shadow:0 2px 5px rgba(0,0,0,.2)
+}
+header img{height:38px}
+.brand{
+font-size:20px;
+font-weight:900;
+letter-spacing:1px;
+color:#fff
+}
+#userTop{font-size:13px;color:#fff}
 
-.slider{display:flex;gap:8px;overflow-x:auto}
-.slider img{height:170px;border-radius:6px;cursor:pointer}
+/* ===== MAIN ===== */
+.main{padding-top:75px;padding-bottom:75px}
 
-.price{color:#2ecc71;font-size:18px;font-weight:bold}
-.cut{text-decoration:line-through;color:#888;margin-left:6px}
-.off{color:#e74c3c;margin-left:6px}
+/* ===== CATEGORIES ===== */
+.categories{
+display:flex;overflow-x:auto;background:#fff;padding:10px
+}
+.cat{
+min-width:90px;text-align:center;margin-right:10px;
+cursor:pointer
+}
+.cat img{width:60px;height:60px;border-radius:50%;object-fit:cover}
+.cat p{font-size:12px;margin:5px 0 0}
 
-.buy,.wish{display:block;margin-top:8px;text-align:center;padding:10px;border-radius:6px;text-decoration:none;font-weight:bold;cursor:pointer}
-.buy{background:#ff9f00;color:#000}
-.wish{background:#fff;border:1px solid #2874f0;color:#2874f0}
+/* ===== SUB CATEGORIES ===== */
+.subcats{
+display:flex;overflow-x:auto;padding:6px;background:#fff
+}
+.subcats div{
+padding:6px 14px;background:#eee;border-radius:20px;
+margin-right:8px;font-size:12px;cursor:pointer
+}
 
-.category{display:flex;gap:12px;overflow-x:auto}
-.category div{text-align:center;font-size:13px}
-.category img{width:80px;height:80px;border-radius:50%;object-fit:cover}
+/* ===== PRODUCTS ===== */
+.products{
+display:grid;grid-template-columns:repeat(2,1fr);
+gap:10px;padding:10px
+}
+.card{
+background:#fff;border-radius:10px;overflow:hidden;
+box-shadow:0 2px 4px rgba(0,0,0,.15)
+}
 
-footer{background:#fff;padding:12px;text-align:center;font-size:14px}
+/* IMAGE SLIDER */
+.slider{position:relative}
+.slider img{
+width:100%;
+height:265px;        /* ≈ 7cm */
+object-fit:contain;
+background:#fff;
+cursor:pointer
+}
+.dots{
+position:absolute;bottom:6px;width:100%;text-align:center
+}
+.dots span{
+height:6px;width:6px;border-radius:50%;
+background:#ccc;display:inline-block;margin:0 2px
+}
+.dots .active{background:#ff5722}
 
-.hidden{display:none}
+.card h4{font-size:14px;margin:6px}
+.price{color:green;font-weight:bold;margin-left:6px}
+.cut{text-decoration:line-through;color:#888;font-size:12px}
+.off{color:red;font-size:12px;margin-left:6px}
 
-/* IMAGE VIEWER */
-#viewer{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:10}
-#viewer img{max-width:95%;max-height:90%}
-#close{position:absolute;top:15px;right:20px;font-size:32px;color:#fff;cursor:pointer}
+.actions{
+display:flex;justify-content:space-between;padding:6px
+}
+.actions button{
+flex:1;margin:2px;border:none;padding:7px;
+border-radius:5px;font-size:12px;cursor:pointer
+}
+.buy{background:#ff5722;color:#fff}
+.wish{background:#eee}
 
-/* ACCOUNT */
-input{width:100%;padding:10px;margin-top:8px}
+/* ===== BOTTOM NAV ===== */
+.nav{
+position:fixed;bottom:0;width:100%;background:#fff;
+display:flex;justify-content:space-around;
+padding:8px 0;box-shadow:0 -2px 5px rgba(0,0,0,.2)
+}
+.nav div{font-size:12px;cursor:pointer}
+
+/* ===== FULLSCREEN IMAGE ===== */
+.fullscreen{
+position:fixed;inset:0;background:#000;
+display:none;align-items:center;justify-content:center;z-index:99
+}
+.fullscreen img{width:100%;height:auto}
 </style>
 </head>
 
 <body>
 
-<header>SmartBuy.ind</header>
+<header>
+<img src="https://i.ibb.co/8DbgQ53J/file-000000002c787209a2c8df5f2b17d7b5.png" onclick="openAdmin()">
+<div class="brand">SMARTBUY.IND</div>
+<div id="userTop">Guest</div>
+</header>
 
-<div class="topbar">
-<button onclick="openWishlist()">🤍 Wishlist</button>
-<button onclick="openAccount()">👤 Account</button>
-<button onclick="toggleDonate()">❤️ Donate SmartBuy Foundation</button>
+<div class="main">
+<div class="categories" id="categories"></div>
+<div class="subcats" id="subcats"></div>
+<div class="products" id="products"></div>
 </div>
 
-<div class="container">
-
-<!-- CATEGORIES -->
-<div class="card">
-<h3>Categories</h3>
-<div class="category">
-<div><img src="https://images.unsplash.com/photo-1520975916090-3105956dac38"><br>Women</div>
-<div><img src="https://images.unsplash.com/photo-1528701800489-20be3c5fa0a4"><br>Men</div>
-<div><img src="https://images.unsplash.com/photo-1542060748-10c28b62716c"><br>Bags</div>
-<div><img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f"><br>Fashion</div>
-</div>
+<div class="nav">
+<div onclick="goHome()">🏠 Home</div>
+<div onclick="showWishlist()">❤️ Wishlist</div>
+<div onclick="showAccount()">👤 Account</div>
+<div onclick="donate()">💝 Donate</div>
 </div>
 
-<!-- PRODUCTS -->
-<div id="products"></div>
-
-<!-- DONATION -->
-<div id="donate" class="card hidden">
-<h3>Donate SmartBuy Foundation ❤️</h3>
-<p><b>UPI:</b> 9343988416-2@ybl</p>
-</div>
-
-<!-- WISHLIST -->
-<div id="wishlist" class="card hidden">
-<h3>Your Wishlist</h3>
-<div id="wishlistItems"></div>
-</div>
-
-<!-- ACCOUNT -->
-<div id="account" class="card hidden">
-<h3>Account</h3>
-<input id="username" placeholder="Enter your name">
-<button class="buy" onclick="saveUser()">Save</button>
-<p id="userMsg"></p>
-</div>
-
-</div>
-
-<footer>
-📧 Customer Support: <b>shailedhkumarchauhan9340@gmail.com</b><br><br>
-<a href="https://www.instagram.com/smartbuy.ind_?igsh=MWUwNTNzczI4YjZsdw==" target="_blank">
-Follow @smartbuy.ind_
-</a>
-</footer>
-
-<!-- IMAGE VIEW -->
-<div id="viewer">
-<span id="close" onclick="closeView()">×</span>
-<img id="big">
+<div class="fullscreen" id="fullscreen" onclick="this.style.display='none'">
+<img id="fullImg">
 </div>
 
 <script>
-// PRODUCTS DATA (NO NEED TO EDIT)
+/* ===== USER ===== */
+let user=JSON.parse(localStorage.getItem("user"))||null;
+if(user){userTop.innerText=user.name}
+
+/* ===== DATA ===== */
+const cats=[
+{name:"For You",img:"https://i.ibb.co/NndQSBVw/3d-shopping-bag-with-percent-sign-isolated-render-realistic-gift-bag-sale-discount-or-clearance-conc.jpg"},
+{name:"Fashion",img:"https://i.ibb.co/VYGS3DQb/51d9ea827ad3d9f0ca52103c47351dd8.jpg",sub:["Men","Women"]},
+{name:"Bags",img:"https://i.ibb.co/3mPPftR8/5dbba7855aeefe5508334ec802ba21bfa71b6cf1.jpg"},
+{name:"Electronics",img:"https://i.ibb.co/4ZJ9SSW7/screens-isometric-electronic-devices-23-2147647441.jpg"}
+];
+
 const products=[
 {
-name:"Premium Bagpack Encrypted (Password)",
-price:322,cut:999,off:"68% OFF",
+name:"Premium Backpack Encrypted",
+cat:"Bags",
+price:322,cut:999,
 link:"https://bitli.in/JZizUxb",
-images:[
-"https://i.ibb.co/Xf2HkkcP/Screenshot-2026-01-28-09-16-20-919-com-flipkart-shopsy-edit.jpg",
-"https://i.ibb.co/yttFXZ4/Screenshot-2026-01-28-09-17-19-979-com-flipkart-shopsy-edit.jpg",
-"https://i.ibb.co/TDnkXXt6/Screenshot-2026-01-28-09-17-07-342-com-flipkart-shopsy.jpg",
-"https://i.ibb.co/XZ2kWLwy/Screenshot-2026-01-28-09-16-37-380-com-flipkart-shopsy-edit.jpg"
+imgs:[
+"https://i.ibb.co/gZVV8M7K/Screenshot-2026-01-28-09-16-20-919-com-flipkart-shopsy-edit.jpg",
+"https://i.ibb.co/d0LnRpXs/Screenshot-2026-01-28-09-17-19-979-com-flipkart-shopsy-edit.jpg",
+"https://i.ibb.co/tkxs7w0/IMG-20260128-215957.jpg"
 ]
 },
+
+{
+name:"MEN Full sleeve striped sweatshirt",
+cat:"Fashion",
+sub:"Men",
+price:299,cut:1499,
+link:"https://fktr.in/trid8uL",
+imgs:[
+"https://i.ibb.co/zH2qJBLK/Screenshot-2026-01-28-23-27-52-532-com-flipkart-android-edit.jpg",
+"https://i.ibb.co/Y9dMqkg/Screenshot-2026-01-28-23-28-05-482-com-flipkart-android-edit.jpg",
+"https://i.ibb.co/LdSbDw4C/Screenshot-2026-01-28-23-28-28-456-com-flipkart-android-edit.jpg"
+]
+},
+
 {
 name:"Women Floral Kurti",
-price:253,cut:1999,off:"87% OFF",
+cat:"Fashion",
+sub:"Women",
+price:253,cut:1999,
 link:"https://bitli.in/mYd26le",
-images:[
+imgs:[
 "https://i.ibb.co/jvnM1DvY/Screenshot-2026-01-28-20-42-57-901-com-flipkart-shopsy-edit.jpg",
 "https://i.ibb.co/dw8Z04GJ/Screenshot-2026-01-28-20-43-10-575-com-flipkart-shopsy-edit.jpg",
 "https://i.ibb.co/svt2y75W/Screenshot-2026-01-28-20-43-22-071-com-flipkart-shopsy-edit.jpg"
 ]
 },
+
 {
 name:"Men Regular Fit Trousers",
-price:262,cut:999,off:"73% OFF",
+cat:"Fashion",
+sub:"Men",
+price:262,cut:999,
 link:"https://bitli.in/w8hSXkv",
-images:[
+imgs:[
 "https://i.ibb.co/xKgxySx2/Screenshot-2026-01-28-20-51-16-478-com-flipkart-shopsy-edit.jpg",
-"https://i.ibb.co/zWcpyJSk/Screenshot-2026-01-28-20-51-44-808-com-flipkart-shopsy-edit.jpg",
-"https://i.ibb.co/FqWStjST/Screenshot-2026-01-28-20-51-31-368-com-flipkart-shopsy-edit.jpg"
+"https://i.ibb.co/zWcpyJSk/Screenshot-2026-01-28-20-51-44-808-com-flipkart-shopsy-edit.jpg"
 ]
 }
 ];
 
-// RENDER PRODUCTS
-const pDiv=document.getElementById("products");
-products.forEach((p,i)=>{
-pDiv.innerHTML+=`
+
+let curCat="For You",curSub="",slideIndex={};
+
+/* ===== RENDER ===== */
+function renderCats(){
+categories.innerHTML="";
+cats.forEach(c=>{
+categories.innerHTML+=`
+<div class="cat" onclick="setCat('${c.name}')">
+<img src="${c.img}"><p>${c.name}</p></div>`;
+});
+}
+
+function renderSub(){
+subcats.innerHTML="";
+let f=cats.find(x=>x.name==curCat);
+if(f && f.sub){
+f.sub.forEach(s=>{
+subcats.innerHTML+=`<div onclick="setSub('${s}')">${s}</div>`;
+});
+}
+}
+
+function renderProd(){
+productsBox=document.getElementById("products");
+productsBox.innerHTML="";
+products.filter((p,i)=>{
+return (curCat=="For You"||p.cat==curCat)&&(curSub==""||p.sub==curSub);
+}).forEach((p,i)=>{
+slideIndex[i]=0;
+let off=Math.round((1-p.price/p.cut)*100);
+productsBox.innerHTML+=`
 <div class="card">
-<h3>${p.name}</h3>
-<div class="slider">
-${p.images.map(img=>`<img src="${img}" onclick="view('${img}')">`).join("")}
+<div class="slider" onclick="openFull('${p.imgs[slideIndex[i]]}')">
+<img src="${p.imgs[0]}" id="img${i}">
+<div class="dots">
+${p.imgs.map((_,d)=>`<span ${d==0?'class="active"':''}></span>`).join("")}
 </div>
+</div>
+<h4>${p.name}</h4>
 <div>
 <span class="price">₹${p.price}</span>
 <span class="cut">₹${p.cut}</span>
-<span class="off">${p.off}</span>
+<span class="off">${off}% OFF</span>
 </div>
-<a class="buy" href="${p.link}" target="_blank">Buy Now</a>
-<div class="wish" onclick="addWishlist(${i})">🤍 Add to Wishlist</div>
+<div class="actions">
+<button class="wish" onclick="addWish(${i})">❤️</button>
+<button class="buy" onclick="window.open('${p.link}')">Buy</button>
+</div>
 </div>`;
 });
-
-// IMAGE VIEW
-function view(src){
-document.getElementById("viewer").style.display="flex";
-document.getElementById("big").src=src;
 }
-function closeView(){document.getElementById("viewer").style.display="none";}
 
-// WISHLIST REAL STORAGE
-let wishlist=JSON.parse(localStorage.getItem("wishlist"))||[];
-function addWishlist(i){
-wishlist.push(products[i]);
-localStorage.setItem("wishlist",JSON.stringify(wishlist));
+function setCat(c){curCat=c;curSub="";renderSub();renderProd()}
+function setSub(s){curSub=s;renderProd()}
+function goHome(){curCat="For You";curSub="";renderSub();renderProd()}
+
+/* ===== FULLSCREEN ===== */
+function openFull(src){
+fullImg.src=src;
+fullscreen.style.display="flex";
+}
+
+/* ===== WISHLIST ===== */
+function addWish(i){
+let w=JSON.parse(localStorage.getItem("wish"))||[];
+w.push(products[i]);
+localStorage.setItem("wish",JSON.stringify(w));
 alert("Added to Wishlist ❤️");
 }
-function openWishlist(){
-document.getElementById("wishlist").classList.toggle("hidden");
-const w=document.getElementById("wishlistItems");
-w.innerHTML=wishlist.map(p=>`<p>• ${p.name}</p>`).join("");
+function showWishlist(){
+let w=JSON.parse(localStorage.getItem("wish"))||[];
+alert("Wishlist items: "+w.length);
 }
 
-// ACCOUNT REAL STORAGE
-function openAccount(){document.getElementById("account").classList.toggle("hidden");}
-function saveUser(){
-const name=document.getElementById("username").value;
-localStorage.setItem("user",name);
-document.getElementById("userMsg").innerText="Saved as "+name;
+/* ===== ACCOUNT ===== */
+function showAccount(){
+let n=prompt("Enter Name");
+let p=prompt("Enter Phone");
+if(n&&p){
+localStorage.setItem("user",JSON.stringify({name:n,phone:p}));
+location.reload();
+}
 }
 
-// DONATION
-function toggleDonate(){
-document.getElementById("donate").classList.toggle("hidden");
+/* ===== ADMIN ===== */
+function openAdmin(){
+let u=prompt("Username");
+let p=prompt("Password");
+if(u=="9343988416"&&p=="1234"){
+alert("Admin Analytics\nProducts: "+products.length);
 }
+}
+
+/* ===== DONATE ===== */
+function donate(){
+location.href="upi://pay?pa=9343988416-2@ybl&pn=SmartBuy%20Foundation";
+}
+
+/* INIT */
+renderCats();renderSub();renderProd();
 </script>
 
 </body>
