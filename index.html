@@ -4,56 +4,54 @@
 <meta charset="UTF-8">
 <title>SmartBuy.ind – Budget Deals Everyday</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body{margin:0;font-family:Arial;background:#f5f6fa}
-header{background:#6c5ce7;padding:10px;display:flex;justify-content:space-between;align-items:center;color:#fff}
-header input{width:80%;padding:8px;border-radius:6px;border:none}
-header button{padding:8px;border:none;border-radius:6px;background:#fff;color:#6c5ce7;font-weight:bold}
+header{background:#6c5ce7;padding:10px;display:flex;gap:10px;align-items:center;color:#fff}
+header input{flex:1;padding:8px;border-radius:6px;border:none}
+header button{padding:8px 12px;border:none;border-radius:6px;background:#fff;color:#6c5ce7;font-weight:bold}
 
-.banner{margin:10px;background:linear-gradient(90deg,#ff4d6d,#6c5ce7);color:#fff;padding:20px;border-radius:10px;font-size:18px;text-align:center;}
+.banner{margin:10px;background:linear-gradient(90deg,#ff4d6d,#6c5ce7);color:#fff;padding:20px;border-radius:10px;font-size:18px;text-align:center}
 
 .section-title{margin:15px;font-weight:bold;font-size:18px}
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:10px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}
 
-.cat, .card{background:#fff;border-radius:10px;padding:10px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.card{background:#fff;border-radius:10px;padding:10px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.1)}
 
-.cat img{width:50px;height:50px}
-.cat p{margin:5px 0;font-size:13px}
+.img-container{position:relative;width:100%;height:200px;overflow:hidden;border-radius:10px}
+.img-container img{width:100%;height:100%;object-fit:cover}
 
-.img-container{position:relative;width:100%;height:200px;overflow:hidden;border-radius:10px;margin-bottom:5px}
-.img-container img{width:100%;height:100%;object-fit:cover;border-radius:10px}
-.img-container button{position:absolute;top:50%;transform:translateY(-50%);background:#00000066;color:#fff;border:none;padding:5px;font-size:18px;border-radius:50%;cursor:pointer}
-.img-container button.prev{left:5px}
-.img-container button.next{right:5px}
+.img-container button{
+position:absolute;top:50%;transform:translateY(-50%);
+background:#00000088;color:#fff;border:none;
+padding:6px 10px;font-size:18px;border-radius:50%;
+}
+.prev{left:5px}
+.next{right:5px}
 
-.card p{margin:5px 0}
 .price{color:#27ae60;font-weight:bold}
-.cut{color:#999;text-decoration:line-through;font-size:12px}
-.btn{display:block;margin-top:8px;background:#6c5ce7;color:#fff;padding:8px;border-radius:6px;text-decoration:none;font-size:14px}
+.cut{text-decoration:line-through;color:#999;font-size:12px}
+.btn{display:block;margin-top:8px;background:#6c5ce7;color:#fff;padding:8px;border-radius:6px;text-decoration:none}
 
 footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:8px;font-size:12px}
 
-/* ADMIN PANEL MODAL */
+/* ADMIN */
 #adminModal{position:fixed;inset:0;background:#000000aa;display:none;justify-content:center;align-items:center}
-#adminModalContent{background:#fff;padding:20px;border-radius:10px;width:90%;max-width:400px}
-#adminModalContent input,#adminModalContent select{width:100%;margin:5px 0;padding:8px;border-radius:6px;border:1px solid #ccc}
-#adminModalContent button{margin-top:10px;padding:10px;border:none;background:#6c5ce7;color:#fff;width:100%;border-radius:6px;font-weight:bold}
+#adminBox{background:#fff;padding:20px;border-radius:10px;width:90%;max-width:400px}
+#adminBox input{width:100%;padding:8px;margin:5px 0}
+#adminBox button{width:100%;padding:10px;margin-top:10px;background:#6c5ce7;color:#fff;border:none;border-radius:6px}
 </style>
 </head>
+
 <body>
 
 <header>
-<input type="text" placeholder="Search on SmartBuy.ind" id="searchInput">
+<input placeholder="Search on SmartBuy.ind">
 <button onclick="openAdmin()">Admin</button>
 </header>
 
-<div class="banner">
-🔥 Budget Blockbuster – Lowest Price Guaranteed
-</div>
-
-<div class="section-title">Categories</div>
-<div class="grid" id="categoryGrid"></div>
+<div class="banner">🔥 Budget Blockbuster Deals 🔥</div>
 
 <div class="section-title">Budget Deals</div>
 <div class="grid" id="productGrid"></div>
@@ -65,116 +63,101 @@ footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px sol
 <div>👤 Account</div>
 </footer>
 
-<!-- ADMIN MODAL -->
+<!-- ADMIN PANEL -->
 <div id="adminModal">
-<div id="adminModalContent">
+<div id="adminBox">
 <h3>Admin Panel</h3>
-<input type="password" id="adminPass" placeholder="Enter password">
-<input type="text" id="prodName" placeholder="Product Name">
-<input type="text" id="prodImg" placeholder="Image URLs (comma separated)">
-<input type="text" id="prodPrice" placeholder="Price">
-<input type="text" id="prodCut" placeholder="Cut Price">
-<input type="text" id="prodLink" placeholder="Buy Now Link">
-<select id="prodCat">
-<option value="Men">Men</option>
-<option value="Women">Women</option>
-<option value="Kids">Kids</option>
-<option value="Kitchen">Kitchen</option>
-<option value="Electronics">Electronics</option>
-<option value="Fashion">Fashion</option>
-</select>
-<button onclick="loginAdmin()">Login & Save Product</button>
+<input type="password" id="pass" placeholder="Password (1234)">
+<input id="name" placeholder="Product name">
+<input id="imgs" placeholder="Image URLs (comma separated)">
+<input id="price" placeholder="Price">
+<input id="cut" placeholder="Cut price">
+<input id="link" placeholder="Buy link">
+<button onclick="addProduct()">Save Product</button>
 <button onclick="closeAdmin()">Close</button>
 </div>
 </div>
 
 <script>
-// CATEGORY LIST
-const categories = [
-{name:"Men",img:"https://cdn-icons-png.flaticon.com/512/892/892458.png"},
-{name:"Women",img:"https://cdn-icons-png.flaticon.com/512/892/892464.png"},
-{name:"Kids",img:"https://cdn-icons-png.flaticon.com/512/3082/3082031.png"},
-{name:"Kitchen",img:"https://cdn-icons-png.flaticon.com/512/1046/1046857.png"},
-{name:"Electronics",img:"https://cdn-icons-png.flaticon.com/512/1077/1077046.png"},
-{name:"Fashion",img:"https://cdn-icons-png.flaticon.com/512/891/891462.png"},
+// ===== RESET OLD DATA (IMPORTANT) =====
+if(!localStorage.getItem("smartbuyInit")){
+  localStorage.clear();
+  localStorage.setItem("smartbuyInit","done");
+}
+
+// ===== DEFAULT PRODUCTS =====
+let products = JSON.parse(localStorage.getItem("products")) || [
+{
+name:"Men Casual Shirt",
+images:[
+"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
+"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c",
+"https://images.unsplash.com/photo-1491553895911-0055eca6402d"
+],
+price:"399",cut:"999",link:"#"
+},
+{
+name:"Stylish Saree",
+images:[
+"https://images.unsplash.com/photo-1583391733956-375a87d9718a",
+"https://images.unsplash.com/photo-1618354691438-25bc04584c23",
+"https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf"
+],
+price:"499",cut:"1299",link:"#"
+},
+{
+name:"premium bagpack",
+image:[
+"https://ibb.co/DPVdgg0F",
+"https://images.unsplash.com/photo-1590658268037-6bf12165a8df",
+"https://images.unsplash.com/photo-1606813902914-5c3bcbdf7c27"
+],
+price:"899",cut:"1999",link:"#"
+}
 ];
-const categoryGrid=document.getElementById("categoryGrid");
-categories.forEach(cat=>{
-  const div=document.createElement("div");
-  div.className="cat";
-  div.innerHTML=`<img src="${cat.img}"><p>${cat.name}</p>`;
-  categoryGrid.appendChild(div);
+
+let indexArr = Array(products.length).fill(0);
+
+function render(){
+const grid=document.getElementById("productGrid");
+grid.innerHTML="";
+products.forEach((p,i)=>{
+grid.innerHTML+=`
+<div class="card">
+<div class="img-container">
+<img id="img${i}" src="${p.images[0]}">
+<button class="prev" onclick="prev(${i})">‹</button>
+<button class="next" onclick="next(${i})">›</button>
+</div>
+<p>${p.name}</p>
+<div class="price">₹${p.price} <span class="cut">₹${p.cut}</span></div>
+<a class="btn" href="${p.link}" target="_blank">Buy Now</a>
+</div>`;
 });
-
-// PRODUCT STORAGE & RENDER
-let products = JSON.parse(localStorage.getItem("smartbuyProducts")) || [
-{name:"Men Casual Shirt",images:["https://ibb.co/DPVdgg0F","https://i.imgur.com/1a.jpg","https://i.imgur.com/1b.jpg"],price:"399",cut:"999",link:"#",cat:"Men"},
-{name:"Stylish Saree",images:["https://i.imgur.com/2.jpg","https://i.imgur.com/2a.jpg","https://i.imgur.com/2b.jpg"],price:"499",cut:"1299",link:"#",cat:"Women"},
-{name:"Casual Shoes",images:["https://i.imgur.com/3.jpg","https://i.imgur.com/3a.jpg","https://i.imgur.com/3b.jpg"],price:"699",cut:"1599",link:"#",cat:"Men"},
-{name:"Kids T-shirt",images:["https://i.imgur.com/4.jpg","https://i.imgur.com/4a.jpg","https://i.imgur.com/4b.jpg"],price:"299",cut:"699",link:"#",cat:"Kids"},
-{name:"Kitchen Knife Set",images:["https://i.imgur.com/5.jpg","https://i.imgur.com/5a.jpg","https://i.imgur.com/5b.jpg"],price:"599",cut:"1299",link:"#",cat:"Kitchen"},
-{name:"Bluetooth Earphones",images:["https://i.imgur.com/6.jpg","https://i.imgur.com/6a.jpg","https://i.imgur.com/6b.jpg"],price:"899",cut:"1999",link:"#",cat:"Electronics"},
-{name:"Women Handbag",images:["https://i.imgur.com/7.jpg","https://i.imgur.com/7a.jpg","https://i.imgur.com/7b.jpg"],price:"799",cut:"1499",link:"#",cat:"Fashion"},
-{name:"Smart Watch",images:["https://i.imgur.com/8.jpg","https://i.imgur.com/8a.jpg","https://i.imgur.com/8b.jpg"],price:"1299",cut:"2999",link:"#",cat:"Electronics"},
-{name:"Men Jeans",images:["https://i.imgur.com/9.jpg","https://i.imgur.com/9a.jpg","https://i.imgur.com/9b.jpg"],price:"999",cut:"1999",link:"#",cat:"Men"},
-{name:"Kitchen Mixer",images:["https://i.imgur.com/10.jpg","https://i.imgur.com/10a.jpg","https://i.imgur.com/10b.jpg"],price:"1999",cut:"3499",link:"#",cat:"Kitchen"}
-];
-
-// TRACK CURRENT IMAGE INDEX PER PRODUCT
-let imgIndexes = Array(products.length).fill(0);
-
-function renderProducts(){
-  const grid=document.getElementById("productGrid");
-  grid.innerHTML="";
-  products.forEach((prod,i)=>{
-    const div=document.createElement("div");
-    div.className="card";
-    div.innerHTML=`
-      <div class="img-container">
-        <img id="prod-img-${i}" src="${prod.images[0]}">
-        <button class="prev" onclick="prevImg(${i})">&#10094;</button>
-        <button class="next" onclick="nextImg(${i})">&#10095;</button>
-      </div>
-      <p>${prod.name}</p>
-      <span class="price">₹${prod.price}</span> <span class="cut">₹${prod.cut}</span>
-      <a class="btn" href="${prod.link}" target="_blank">Buy Now</a>
-    `;
-    grid.appendChild(div);
-  });
 }
-renderProducts();
+render();
 
-function nextImg(index){
-  imgIndexes[index]++;
-  if(imgIndexes[index]>=products[index].images.length) imgIndexes[index]=0;
-  document.getElementById(`prod-img-${index}`).src = products[index].images[imgIndexes[index]];
+function next(i){
+indexArr[i]=(indexArr[i]+1)%products[i].images.length;
+document.getElementById("img"+i).src=products[i].images[indexArr[i]];
 }
-function prevImg(index){
-  imgIndexes[index]--;
-  if(imgIndexes[index]<0) imgIndexes[index]=products[index].images.length-1;
-  document.getElementById(`prod-img-${index}`).src = products[index].images[imgIndexes[index]];
+function prev(i){
+indexArr[i]=(indexArr[i]-1+products[i].images.length)%products[i].images.length;
+document.getElementById("img"+i).src=products[i].images[indexArr[i]];
 }
 
-// ADMIN MODAL FUNCTIONS
-function openAdmin(){document.getElementById("adminModal").style.display="flex";}
-function closeAdmin(){document.getElementById("adminModal").style.display="none";}
-function loginAdmin(){
-  const pass=document.getElementById("adminPass").value;
-  if(pass!=="1234"){alert("Wrong password!");return;}
-  const name=document.getElementById("prodName").value;
-  const imgStr=document.getElementById("prodImg").value;
-  const images=imgStr.split(",").map(url=>url.trim());
-  const price=document.getElementById("prodPrice").value;
-  const cut=document.getElementById("prodCut").value;
-  const link=document.getElementById("prodLink").value;
-  const cat=document.getElementById("prodCat").value;
-  if(!name || images.length===0 || !price || !link){alert("Fill all fields!");return;}
-  products.push({name,images,price,cut,link,cat});
-  imgIndexes.push(0);
-  localStorage.setItem("smartbuyProducts",JSON.stringify(products));
-  renderProducts();
-  alert("Product added!");
+// ADMIN
+function openAdmin(){adminModal.style.display="flex"}
+function closeAdmin(){adminModal.style.display="none"}
+
+function addProduct(){
+if(pass.value!=="1234") return alert("Wrong password");
+const imgs=imgsInput=imgs.value.split(",").map(x=>x.trim());
+products.push({name:name.value,images:imgs,price:price.value,cut:cut.value,link:link.value});
+localStorage.setItem("products",JSON.stringify(products));
+location.reload();
 }
 </script>
+
 </body>
 </html>
