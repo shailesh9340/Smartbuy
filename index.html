@@ -2,65 +2,68 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SmartBuy.ind – Budget Deals Everyday</title>
+<title>SmartBuy.ind – Ready</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{margin:0;font-family:Arial;background:#f5f6fa}
-header{background:#6c5ce7;padding:10px;display:flex;gap:10px;align-items:center;color:#fff}
-header input{flex:1;padding:8px;border-radius:6px;border:none}
-header button{padding:8px 12px;border:none;border-radius:6px;background:#fff;color:#6c5ce7;font-weight:bold}
+body{margin:0;font-family:Arial;background:#f2f2f2}
+header{background:#2874f0;color:#fff;padding:10px;display:flex;gap:8px}
+header input{flex:1;padding:8px;border:none;border-radius:4px}
+header button{border:none;border-radius:4px;padding:8px 12px;font-weight:bold}
 
-.banner{margin:10px;background:linear-gradient(90deg,#ff4d6d,#6c5ce7);color:#fff;padding:20px;border-radius:10px;font-size:18px;text-align:center}
-
-.section-title{margin:15px;font-weight:bold;font-size:18px}
+.banner{margin:10px;background:#ffe500;padding:15px;border-radius:8px;font-weight:bold;text-align:center}
 
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}
 
-.card{background:#fff;border-radius:10px;padding:10px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.card{background:#fff;border-radius:8px;padding:8px;box-shadow:0 1px 4px rgba(0,0,0,.2)}
 
-.img-container{position:relative;width:100%;height:200px;overflow:hidden;border-radius:10px}
-.img-container img{width:100%;height:100%;object-fit:cover}
+.img-box{position:relative;height:180px}
+.img-box img{width:100%;height:100%;object-fit:cover;border-radius:6px}
 
-.img-container button{
+.arrow{
 position:absolute;top:50%;transform:translateY(-50%);
-background:#00000088;color:#fff;border:none;
-padding:6px 10px;font-size:18px;border-radius:50%;
+background:#00000099;color:#fff;border:none;
+font-size:18px;padding:5px 8px;border-radius:50%
 }
-.prev{left:5px}
-.next{right:5px}
+.left{left:5px}
+.right{right:5px}
 
-.price{color:#27ae60;font-weight:bold}
-.cut{text-decoration:line-through;color:#999;font-size:12px}
-.btn{display:block;margin-top:8px;background:#6c5ce7;color:#fff;padding:8px;border-radius:6px;text-decoration:none}
+.price{color:green;font-weight:bold}
+.cut{text-decoration:line-through;color:#888;font-size:12px}
 
-footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:8px;font-size:12px}
+.btn{display:block;text-align:center;background:#2874f0;color:#fff;
+padding:8px;border-radius:6px;text-decoration:none;margin-top:6px}
+
+footer{
+position:fixed;bottom:0;left:0;right:0;
+background:#fff;border-top:1px solid #ccc;
+display:flex;justify-content:space-around;padding:8px;font-size:12px
+}
 
 /* ADMIN */
 #adminModal{position:fixed;inset:0;background:#000000aa;display:none;justify-content:center;align-items:center}
-#adminBox{background:#fff;padding:20px;border-radius:10px;width:90%;max-width:400px}
+#adminBox{background:#fff;padding:15px;border-radius:8px;width:90%;max-width:350px}
 #adminBox input{width:100%;padding:8px;margin:5px 0}
-#adminBox button{width:100%;padding:10px;margin-top:10px;background:#6c5ce7;color:#fff;border:none;border-radius:6px}
+#adminBox button{width:100%;padding:10px;margin-top:8px;border:none;background:#2874f0;color:#fff;border-radius:6px}
 </style>
 </head>
 
 <body>
 
 <header>
-<input placeholder="Search on SmartBuy.ind">
+<input id="search" placeholder="Search products">
 <button onclick="openAdmin()">Admin</button>
 </header>
 
-<div class="banner">🔥 Budget Blockbuster Deals 🔥</div>
+<div class="banner">🔥 Budget Deals – SmartBuy.ind</div>
 
-<div class="section-title">Budget Deals</div>
 <div class="grid" id="productGrid"></div>
 
 <footer>
-<div>🏠 Home</div>
-<div>🔍 Search</div>
-<div>🛒 Cart</div>
-<div>👤 Account</div>
+<div onclick="alert('Home')">🏠 Home</div>
+<div onclick="searchProduct()">🔍 Search</div>
+<div onclick="alert('Cart coming soon')">🛒 Cart</div>
+<div onclick="alert('Account coming soon')">👤 Account</div>
 </footer>
 
 <!-- ADMIN PANEL -->
@@ -68,66 +71,51 @@ footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px sol
 <div id="adminBox">
 <h3>Admin Panel</h3>
 <input type="password" id="pass" placeholder="Password (1234)">
-<input id="name" placeholder="Product name">
-<input id="imgs" placeholder="Image URLs (comma separated)">
-<input id="price" placeholder="Price">
-<input id="cut" placeholder="Cut price">
-<input id="link" placeholder="Buy link">
+<input id="pname" placeholder="Product name">
+<input id="pimgs" placeholder="Image URLs (comma separated)">
+<input id="pprice" placeholder="Price">
+<input id="pcut" placeholder="Cut price">
+<input id="plink" placeholder="Affiliate link">
 <button onclick="addProduct()">Save Product</button>
 <button onclick="closeAdmin()">Close</button>
 </div>
 </div>
 
 <script>
-// ===== RESET OLD DATA (IMPORTANT) =====
-if(!localStorage.getItem("smartbuyInit")){
-  localStorage.clear();
-  localStorage.setItem("smartbuyInit","done");
+// RESET FIRST TIME
+if(!localStorage.getItem("sb_init")){
+localStorage.clear();
+localStorage.setItem("sb_init","1");
 }
 
-// ===== DEFAULT PRODUCTS =====
+// DEFAULT PRODUCT (YOUR BAGPACK)
 let products = JSON.parse(localStorage.getItem("products")) || [
 {
-name:"Men Casual Shirt",
+name:"Premium Bagpack Encrypted (Password)",
 images:[
-"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
-"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c",
-"https://images.unsplash.com/photo-1491553895911-0055eca6402d"
+"https://i.ibb.co/Xf2HkkcP/Screenshot-2026-01-28-09-16-20-919-com-flipkart-shopsy-edit.jpg",
+"https://i.ibb.co/yttFXZ4/Screenshot-2026-01-28-09-17-19-979-com-flipkart-shopsy-edit.jpg",
+"https://i.ibb.co/TDnkXXt6/Screenshot-2026-01-28-09-17-07-342-com-flipkart-shopsy.jpg",
+"https://i.ibb.co/XZ2kWLwy/Screenshot-2026-01-28-09-16-37-380-com-flipkart-shopsy-edit.jpg"
 ],
-price:"399",cut:"999",link:"#"
-},
-{
-name:"Stylish Saree",
-images:[
-"https://images.unsplash.com/photo-1583391733956-375a87d9718a",
-"https://images.unsplash.com/photo-1618354691438-25bc04584c23",
-"https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf"
-],
-price:"499",cut:"1299",link:"#"
-},
-{
-name:"premium bagpack",
-image:[
-"https://ibb.co/DPVdgg0F",
-"https://images.unsplash.com/photo-1590658268037-6bf12165a8df",
-"https://images.unsplash.com/photo-1606813902914-5c3bcbdf7c27"
-],
-price:"899",cut:"1999",link:"#"
+price:"322",
+cut:"999",
+link:"https://bitli.in/JZizUxb"
 }
 ];
 
-let indexArr = Array(products.length).fill(0);
+let idx = Array(products.length).fill(0);
 
-function render(){
-const grid=document.getElementById("productGrid");
-grid.innerHTML="";
-products.forEach((p,i)=>{
-grid.innerHTML+=`
+function render(list=products){
+const g=document.getElementById("productGrid");
+g.innerHTML="";
+list.forEach((p,i)=>{
+g.innerHTML+=`
 <div class="card">
-<div class="img-container">
+<div class="img-box">
 <img id="img${i}" src="${p.images[0]}">
-<button class="prev" onclick="prev(${i})">‹</button>
-<button class="next" onclick="next(${i})">›</button>
+<button class="arrow left" onclick="prev(${i})">‹</button>
+<button class="arrow right" onclick="next(${i})">›</button>
 </div>
 <p>${p.name}</p>
 <div class="price">₹${p.price} <span class="cut">₹${p.cut}</span></div>
@@ -138,12 +126,12 @@ grid.innerHTML+=`
 render();
 
 function next(i){
-indexArr[i]=(indexArr[i]+1)%products[i].images.length;
-document.getElementById("img"+i).src=products[i].images[indexArr[i]];
+idx[i]=(idx[i]+1)%products[i].images.length;
+document.getElementById("img"+i).src=products[i].images[idx[i]];
 }
 function prev(i){
-indexArr[i]=(indexArr[i]-1+products[i].images.length)%products[i].images.length;
-document.getElementById("img"+i).src=products[i].images[indexArr[i]];
+idx[i]=(idx[i]-1+products[i].images.length)%products[i].images.length;
+document.getElementById("img"+i).src=products[i].images[idx[i]];
 }
 
 // ADMIN
@@ -152,10 +140,22 @@ function closeAdmin(){adminModal.style.display="none"}
 
 function addProduct(){
 if(pass.value!=="1234") return alert("Wrong password");
-const imgs=imgsInput=imgs.value.split(",").map(x=>x.trim());
-products.push({name:name.value,images:imgs,price:price.value,cut:cut.value,link:link.value});
+const imgs=pimgs.value.split(",").map(x=>x.trim());
+products.push({
+name:pname.value,
+images:imgs,
+price:pprice.value,
+cut:pcut.value,
+link:plink.value
+});
 localStorage.setItem("products",JSON.stringify(products));
 location.reload();
+}
+
+// SEARCH
+function searchProduct(){
+const q=search.value.toLowerCase();
+render(products.filter(p=>p.name.toLowerCase().includes(q)));
 }
 </script>
 
