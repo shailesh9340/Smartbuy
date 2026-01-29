@@ -2,151 +2,159 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SmartBuy.ind</title>
+<title>SMARTBUY.IND</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{margin:0;font-family:Arial;background:#0d0dde}
 
-/* ===== HEADER ===== */
+/* HEADER */
 header{
-position:fixed;top:0;width:100%;z-index:10;
-background:#2209c2;padding:10px;
+position:fixed;top:0;width:100%;height:65px;z-index:10;
+background:#2209c2;padding:0 15px;
 display:flex;align-items:center;justify-content:space-between;
 box-shadow:0 2px 5px rgba(0,0,0,.2)
 }
-header img{height:38px}
-.brand{
-font-size:20px;
-font-weight:900;
-letter-spacing:1px;
-color:#fff
-}
-#userTop{font-size:13px;color:#fff}
+header img{height:45px;border-radius:50%;border:2px solid #fff;cursor:pointer}
+.brand-name{color:#fff;font-size:20px;font-weight:900}
+#userTop{color:#fff;font-weight:bold}
 
-/* ===== MAIN ===== */
-.main{padding-top:75px;padding-bottom:75px}
+/* MAIN */
+.main{padding-top:70px;padding-bottom:140px}
 
-/* ===== CATEGORIES ===== */
-.categories{
-display:flex;overflow-x:auto;background:#fff;padding:10px
-}
-.cat{
-min-width:90px;text-align:center;margin-right:10px;
-cursor:pointer
-}
-.cat img{width:60px;height:60px;border-radius:50%;object-fit:cover}
-.cat p{font-size:12px;margin:5px 0 0}
-
-/* ===== SUB CATEGORIES ===== */
-.subcats{
-display:flex;overflow-x:auto;padding:6px;background:#fff
-}
-.subcats div{
-padding:6px 14px;background:#eee;border-radius:20px;
-margin-right:8px;font-size:12px;cursor:pointer
+/* SEARCH */
+.search-wrapper{padding:10px}
+.search-input{
+width:100%;padding:12px;border:none;border-radius:30px;
+font-size:15px
 }
 
-/* ===== PRODUCTS ===== */
-.products{
-display:grid;grid-template-columns:repeat(2,1fr);
+/* CATEGORY */
+.cat-scroll{display:flex;overflow-x:auto;background:#fff;padding:10px;margin:0 10px;border-radius:10px}
+.cat-item{min-width:85px;text-align:center;margin-right:10px}
+.cat-item p{font-size:12px}
+
+/* SUB */
+.sub-scroll{display:flex;overflow-x:auto;padding:10px;margin:0 10px}
+.sub-btn{padding:6px 15px;background:#eee;border-radius:20px;margin-right:8px}
+
+/* PRODUCTS */
+#grid_panel{
+display:grid;
+grid-template-columns:1fr 1fr;
 gap:10px;padding:10px
 }
-.card{
-background:#fff;border-radius:10px;overflow:hidden;
-box-shadow:0 2px 4px rgba(0,0,0,.15)
-}
-
-/* IMAGE SLIDER */
-.slider{position:relative}
-.slider img{
-width:100%;
-height:265px;        /* ≈ 7cm */
-object-fit:contain;
-background:#fff;
-cursor:pointer
-}
-.dots{
-position:absolute;bottom:6px;width:100%;text-align:center
-}
-.dots span{
-height:6px;width:6px;border-radius:50%;
-background:#ccc;display:inline-block;margin:0 2px
-}
-.dots .active{background:#ff5722}
-
-.card h4{font-size:14px;margin:6px}
-.price{color:green;font-weight:bold;margin-left:6px}
+.prod-card{background:#fff;border-radius:10px;overflow:hidden}
+.prod-img-box{height:180px}
+.prod-img-box img{width:100%;height:100%;object-fit:cover}
+.info-box{padding:8px}
+.price{color:green;font-weight:bold}
 .cut{text-decoration:line-through;color:#888;font-size:12px}
-.off{color:red;font-size:12px;margin-left:6px}
+.btn-row{display:flex;gap:5px}
+.btn-row button{
+flex:1;border:none;padding:8px;
+background:#ff5722;color:#fff;font-weight:bold;border-radius:5px
+}
 
-.actions{
-display:flex;justify-content:space-between;padding:6px
+/* INSTAGRAM + DONATION */
+.box{
+background:#fff;
+margin:15px 10px;
+padding:18px;
+border-radius:12px;
+text-align:center
 }
-.actions button{
-flex:1;margin:2px;border:none;padding:7px;
-border-radius:5px;font-size:12px;cursor:pointer
+.insta-btn{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+background:#e1306c;
+color:#fff;
+padding:12px;
+border-radius:25px;
+text-decoration:none;
+font-weight:bold
 }
-.buy{background:#ff5722;color:#fff}
-.wish{background:#eee}
+.insta-btn img{height:20px;filter:invert(1)}
 
-/* ===== BOTTOM NAV ===== */
-.nav{
-position:fixed;bottom:0;width:100%;background:#fff;
-display:flex;justify-content:space-around;
-padding:8px 0;box-shadow:0 -2px 5px rgba(0,0,0,.2)
+.donate-btn{
+background:orange;
+color:#fff;
+border:none;
+padding:12px 25px;
+border-radius:25px;
+font-weight:bold;
+font-size:15px;
+margin-top:10px
 }
-.nav div{font-size:12px;cursor:pointer}
 
-/* ===== FULLSCREEN IMAGE ===== */
-.fullscreen{
-position:fixed;inset:0;background:#000;
-display:none;align-items:center;justify-content:center;z-index:99
+/* NAV */
+.bottom-nav{
+position:fixed;bottom:0;width:100%;
+background:#fff;display:flex;justify-content:space-around;
+padding:12px 0
 }
-.fullscreen img{width:100%;height:auto}
 </style>
 </head>
 
 <body>
 
 <header>
-<img src="https://i.ibb.co/8DbgQ53J/file-000000002c787209a2c8df5f2b17d7b5.png" onclick="openAdmin()">
-<div class="brand">SMARTBUY.IND</div>
-<div id="userTop">Guest</div>
+<img src="https://i.ibb.co/8DbgQ53J/file-000000002c787209a2c8df5f2b17d7b5.png" onclick="handleAdminLogin()">
+<div class="brand-name">SMARTBUY.IND</div>
+<div id="userTop" onclick="handleAccount()">Login</div>
 </header>
 
 <div class="main">
-<div class="categories" id="categories"></div>
-<div class="subcats" id="subcats"></div>
-<div class="products" id="products"></div>
+
+<div class="search-wrapper">
+<input class="search-input" id="searchInp" placeholder="Search products..." onkeyup="runSearch()">
 </div>
 
-<div class="nav">
-<div onclick="goHome()">🏠 Home</div>
-<div onclick="showWishlist()">❤️ Wishlist</div>
-<div onclick="showAccount()">👤 Account</div>
-<div onclick="donate()">💝 Donate</div>
+<div class="cat-scroll" id="cat_panel"></div>
+<div class="sub-scroll" id="sub_panel"></div>
+<div id="grid_panel"></div>
+
+<!-- 🔥 INSTAGRAM SECTION -->
+<div class="box">
+<h3 style="color:#e1306c;margin-top:0">📸 Follow on Instagram</h3>
+<a class="insta-btn" href="https://instagram.com/smart_buy.ind" target="_blank">
+<img src="https://cdn.pixabay.com/photo/2021/06/15/12/14/instagram-6338392_1280.png">
+@smart_buy.ind
+</a>
 </div>
 
-<div class="fullscreen" id="fullscreen" onclick="this.style.display='none'">
-<img id="fullImg">
+<!-- 💖 DONATION SECTION -->
+<div class="box">
+<h3 style="color:#2209c2;margin-top:0">💖 Support SmartBuy</h3>
+<p>Help us grow & bring more best deals for you 🙏</p>
+<button class="donate-btn"
+onclick="location.href='upi://pay?pa=9343988416-2@ybl&pn=SmartBuy'">
+Donate Now
+</button>
+</div>
+
+</div>
+
+<div class="bottom-nav">
+<div onclick="resetHome()">🏠 Home</div>
+<div onclick="showWishlistPage()">❤️ Wishlist</div>
+<div onclick="handleAccount()">👤 Account</div>
 </div>
 
 <script>
-/* ===== USER ===== */
-let user=JSON.parse(localStorage.getItem("user"))||null;
-if(user){userTop.innerText=user.name}
-
-/* ===== DATA ===== */
-const cats=[
-{name:"For You",img:"https://i.ibb.co/NndQSBVw/3d-shopping-bag-with-percent-sign-isolated-render-realistic-gift-bag-sale-discount-or-clearance-conc.jpg"},
-{name:"Fashion",img:"https://i.ibb.co/VYGS3DQb/51d9ea827ad3d9f0ca52103c47351dd8.jpg",sub:["Men","Women"]},
-{name:"Bags",img:"https://i.ibb.co/3mPPftR8/5dbba7855aeefe5508334ec802ba21bfa71b6cf1.jpg"},
-{name:"Electronics",img:"https://i.ibb.co/4ZJ9SSW7/screens-isometric-electronic-devices-23-2147647441.jpg"}
+/* DATABASE */
+const DB_CATS=[
+{name:"For You"},
+{name:"Fashion",sub:["Men","Women"]},
+{name:"Bags"},
+{name:"Electronics"}
 ];
 
-const products=[
+const DB_ITEMS=[
 {
+id:1,
 name:"Premium Backpack Encrypted",
 cat:"Bags",
 price:322,cut:999,
@@ -157,148 +165,130 @@ imgs:[
 "https://i.ibb.co/tkxs7w0/IMG-20260128-215957.jpg"
 ]
 },
-
 {
-name:"MEN Full sleeve striped sweatshirt",
-cat:"Fashion",
-sub:"Men",
+id:2,
+name:"MEN Full sleeve sweatshirt",
+cat:"Fashion",sub:"Men",
 price:299,cut:1499,
 link:"https://fktr.in/trid8uL",
 imgs:[
 "https://i.ibb.co/zH2qJBLK/Screenshot-2026-01-28-23-27-52-532-com-flipkart-android-edit.jpg",
-"https://i.ibb.co/Y9dMqkg/Screenshot-2026-01-28-23-28-05-482-com-flipkart-android-edit.jpg",
-"https://i.ibb.co/LdSbDw4C/Screenshot-2026-01-28-23-28-28-456-com-flipkart-android-edit.jpg"
+"https://i.ibb.co/Y9dMqkg/Screenshot-2026-01-28-23-28-05-482-com-flipkart-android-edit.jpg"
 ]
 },
-
 {
+id:3,
 name:"Women Floral Kurti",
-cat:"Fashion",
-sub:"Women",
+cat:"Fashion",sub:"Women",
 price:253,cut:1999,
 link:"https://bitli.in/mYd26le",
 imgs:[
 "https://i.ibb.co/jvnM1DvY/Screenshot-2026-01-28-20-42-57-901-com-flipkart-shopsy-edit.jpg",
-"https://i.ibb.co/dw8Z04GJ/Screenshot-2026-01-28-20-43-10-575-com-flipkart-shopsy-edit.jpg",
-"https://i.ibb.co/svt2y75W/Screenshot-2026-01-28-20-43-22-071-com-flipkart-shopsy-edit.jpg"
+"https://i.ibb.co/dw8Z04GJ/Screenshot-2026-01-28-20-43-10-575-com-flipkart-shopsy-edit.jpg"
 ]
 },
-
 {
+id:4,
 name:"Men Regular Fit Trousers",
-cat:"Fashion",
-sub:"Men",
+cat:"Fashion",sub:"Men",
 price:262,cut:999,
 link:"https://bitli.in/w8hSXkv",
 imgs:[
-"https://i.ibb.co/xKgxySx2/Screenshot-2026-01-28-20-51-16-478-com-flipkart-shopsy-edit.jpg",
-"https://i.ibb.co/zWcpyJSk/Screenshot-2026-01-28-20-51-44-808-com-flipkart-shopsy-edit.jpg"
+"https://i.ibb.co/xKgxySx2/Screenshot-2026-01-28-20-51-16-478-com-flipkart-shopsy-edit.jpg"
+]
+},
+{
+id:5,
+name:"DZAB Core i7 Desktop",
+cat:"Electronics",
+price:17406,cut:39999,
+link:"https://fktr.in/IJIKC1X",
+imgs:[
+"https://i.ibb.co/Z61v0mqf/Screenshot-2026-01-29-05-29-44-201-com-flipkart-android-edit.jpg"
 ]
 }
 ];
 
+let activeCat="For You",activeSub="",searchTerm="";
 
-let curCat="For You",curSub="",slideIndex={};
-
-/* ===== RENDER ===== */
-function renderCats(){
-categories.innerHTML="";
-cats.forEach(c=>{
-categories.innerHTML+=`
-<div class="cat" onclick="setCat('${c.name}')">
-<img src="${c.img}"><p>${c.name}</p></div>`;
+/* RENDER */
+function drawCategories(){
+cat_panel.innerHTML="";
+DB_CATS.forEach(c=>{
+cat_panel.innerHTML+=`<div class="cat-item" onclick="changeCat('${c.name}')"><p>${c.name}</p></div>`;
 });
 }
 
-function renderSub(){
-subcats.innerHTML="";
-let f=cats.find(x=>x.name==curCat);
-if(f && f.sub){
+function drawSubcats(){
+sub_panel.innerHTML="";
+let f=DB_CATS.find(x=>x.name===activeCat);
+if(f&&f.sub){
 f.sub.forEach(s=>{
-subcats.innerHTML+=`<div onclick="setSub('${s}')">${s}</div>`;
+sub_panel.innerHTML+=`<div class="sub-btn" onclick="changeSub('${s}')">${s}</div>`;
 });
 }
 }
 
-function renderProd(){
-productsBox=document.getElementById("products");
-productsBox.innerHTML="";
-products.filter((p,i)=>{
-return (curCat=="For You"||p.cat==curCat)&&(curSub==""||p.sub==curSub);
+function drawProducts(){
+grid_panel.innerHTML="";
+DB_ITEMS.filter(p=>{
+return (activeCat==="For You"||p.cat===activeCat)
+&&(activeSub===""||p.sub===activeSub)
+&&p.name.toLowerCase().includes(searchTerm);
 }).forEach((p,i)=>{
-slideIndex[i]=0;
-let off=Math.round((1-p.price/p.cut)*100);
-productsBox.innerHTML+=`
-<div class="card">
-<div class="slider" onclick="openFull('${p.imgs[slideIndex[i]]}')">
-<img src="${p.imgs[0]}" id="img${i}">
-<div class="dots">
-${p.imgs.map((_,d)=>`<span ${d==0?'class="active"':''}></span>`).join("")}
+grid_panel.innerHTML+=`
+<div class="prod-card">
+<div class="prod-img-box">
+<img id="img${i}" src="${p.imgs[0]}" onclick="window.open('${p.link}')">
 </div>
-</div>
-<h4>${p.name}</h4>
-<div>
+<div class="info-box">
+<b>${p.name}</b><br>
 <span class="price">₹${p.price}</span>
 <span class="cut">₹${p.cut}</span>
-<span class="off">${off}% OFF</span>
+<div class="btn-row">
+<button onclick="window.open('${p.link}')">BUY</button>
 </div>
-<div class="actions">
-<button class="wish" onclick="addWish(${i})">❤️</button>
-<button class="buy" onclick="window.open('${p.link}')">Buy</button>
 </div>
 </div>`;
+autoSlide(p.imgs,i);
 });
 }
 
-function setCat(c){curCat=c;curSub="";renderSub();renderProd()}
-function setSub(s){curSub=s;renderProd()}
-function goHome(){curCat="For You";curSub="";renderSub();renderProd()}
-
-/* ===== FULLSCREEN ===== */
-function openFull(src){
-fullImg.src=src;
-fullscreen.style.display="flex";
+/* AUTO SLIDER */
+function autoSlide(imgs,i){
+let idx=0;
+setInterval(()=>{
+idx=(idx+1)%imgs.length;
+let im=document.getElementById("img"+i);
+if(im) im.src=imgs[idx];
+},3000);
 }
 
-/* ===== WISHLIST ===== */
-function addWish(i){
-let w=JSON.parse(localStorage.getItem("wish"))||[];
-w.push(products[i]);
-localStorage.setItem("wish",JSON.stringify(w));
-alert("Added to Wishlist ❤️");
-}
-function showWishlist(){
-let w=JSON.parse(localStorage.getItem("wish"))||[];
-alert("Wishlist items: "+w.length);
-}
+/* NAV */
+function changeCat(c){activeCat=c;activeSub="";drawSubcats();drawProducts()}
+function changeSub(s){activeSub=s;drawProducts()}
+function runSearch(){searchTerm=searchInp.value.toLowerCase();drawProducts()}
+function resetHome(){activeCat="For You";activeSub="";searchInp.value="";drawSubcats();drawProducts()}
+function showWishlistPage(){alert("Wishlist coming soon")}
 
-/* ===== ACCOUNT ===== */
-function showAccount(){
-let n=prompt("Enter Name");
-let p=prompt("Enter Phone");
-if(n&&p){
-localStorage.setItem("user",JSON.stringify({name:n,phone:p}));
-location.reload();
+/* ACCOUNT */
+function handleAccount(){
+let u=localStorage.getItem("user");
+if(u){alert("Logged in as "+u)}
+else{
+let n=prompt("Enter name");
+if(n){localStorage.setItem("user",n);userTop.innerText=n}
 }
 }
 
-/* ===== ADMIN ===== */
-function openAdmin(){
-let u=prompt("Username");
-let p=prompt("Password");
-if(u=="9343988416"&&p=="1234"){
-alert("Admin Analytics\nProducts: "+products.length);
-}
+/* ADMIN */
+function handleAdminLogin(){
+let u=prompt("Admin ID");let p=prompt("Password");
+if(u==="9343988416"&&p==="1234") alert("Admin Login OK");
 }
 
-/* ===== DONATE ===== */
-function donate(){
-location.href="upi://pay?pa=9343988416-2@ybl&pn=SmartBuy%20Foundation";
-}
-
-/* INIT */
-renderCats();renderSub();renderProd();
+drawCategories();drawSubcats();drawProducts();
 </script>
 
 </body>
-</html>
+  </html>
